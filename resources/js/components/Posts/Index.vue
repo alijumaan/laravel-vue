@@ -3,30 +3,34 @@
         <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>City</th>
+            <th>Title</th>
+            <th>Text</th>
+            <th>Create At</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>Ali</td>
-            <td>Jeddah</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Saad</td>
-            <td>Abha</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Ahmed</td>
-            <td>Riyadh</td>
+        <tr v-for="post in posts">
+            <td>{{  post.id }}</td>
+            <td>{{  post.title }}</td>
+            <td>{{  post.text.substring(0, 50) }}</td>
+            <td>{{  post.createdAt }}</td>
         </tr>
         </tbody>
     </table>
 </template>
 
 <script>
-export default {}
+export default {
+    data(){
+        return {
+            posts: []
+        }
+    },
+    mounted() {
+        axios.get('/api/posts').then(response => {
+            this.posts = response.data.data;
+        })
+    }
+
+}
 </script>

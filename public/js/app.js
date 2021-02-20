@@ -1866,15 +1866,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      posts: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/posts').then(function (response) {
+      _this.posts = response.data.data;
+    });
+  }
+});
 
 /***/ }),
 
@@ -37397,48 +37402,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("table", { staticClass: "table" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "tbody",
+      _vm._l(_vm.posts, function(post) {
+        return _c("tr", [
+          _c("td", [_vm._v(_vm._s(post.id))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(post.title))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(post.text.substring(0, 50)))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(post.createdAt))])
+        ])
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table" }, [
-      _c("thead", [
-        _c("tr", [
-          _c("th", [_vm._v("Id")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Name")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("City")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tbody", [
-        _c("tr", [
-          _c("td", [_vm._v("1")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Ali")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Jeddah")])
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Id")]),
         _vm._v(" "),
-        _c("tr", [
-          _c("td", [_vm._v("2")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Saad")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Abha")])
-        ]),
+        _c("th", [_vm._v("Title")]),
         _vm._v(" "),
-        _c("tr", [
-          _c("td", [_vm._v("3")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Ahmed")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Riyadh")])
-        ])
+        _c("th", [_vm._v("Text")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Create At")])
       ])
     ])
   }
