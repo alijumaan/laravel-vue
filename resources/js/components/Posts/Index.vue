@@ -10,17 +10,31 @@
         <thead>
         <tr>
             <th>Id</th>
-            <th>Title</th>
-            <th>Post text</th>
-            <th>Create At</th>
+            <th>
+                <a href="#" @click.prevent="change_sort('title')">Title</a>
+                <span v-if="this.sort_field == 'title' && this.sort_direction == 'asc'">&uarr;</span>
+                <span v-if="this.sort_field == 'title' && this.sort_direction == 'desc'">&darr;</span>
+            </th>
+            <th>
+                <a href="#" @click.prevent="change_sort('post_text')">Post text</a>
+                <span  v-if="this.sort_field == 'post_text' && this.sort_direction == 'asc'">&uarr;</span>
+                <span  v-if="this.sort_field == 'post_text' && this.sort_direction == 'desc'">&darr;</span>
+            </th>
+            <th>
+                <a href="#" @click.prevent="change_sort('created_at')">Created date</a>
+                <span  v-if="this.sort_field == 'created_at' && this.sort_direction == 'asc'">&uarr;</span>
+                <span  v-if="this.sort_field == 'created_at' && this.sort_direction == 'desc'">&darr;</span>
+            </th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="post in posts.data">
             <td>{{  post.id }}</td>
             <td>{{  post.title }}</td>
-            <td>{{  post.text.substring(0, 50) }}</td>
-            <td>{{  post.createdAt }}</td>
+            <td>{{  post.post_text.substring(0, 50) }}</td>
+            <td>{{  post.created_at }}</td>
+            <td></td>
         </tr>
         </tbody>
     </table>
@@ -34,7 +48,9 @@ export default {
         return {
             posts: {},
             categories: {},
-            category_id: ''
+            category_id: '',
+            sort_field: 'created_at',
+            sort_direction: 'desc',
         }
     },
     mounted() {
@@ -50,9 +66,21 @@ export default {
       category_id(value) { this.getResults(); }
     },
     methods: {
+        change_sort(field) {
+            if (this.sort_field === field) {
+                this.sort_direction = this.sort_direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                this.sort_field = field;
+                this.sort_direction = 'asc';
+            }
+            this.getResults();
+        },
         // Our method to GET results from a Laravel endpoint
         getResults(page = 1) {
-            axios.get('/api/posts?page=' + page + '&category_id=' + this.category_id)
+            axios.get('/api/posts?page=' + page
+                + '&category_id=' + this.category_id
+                + '&sort_field=' + this.sort_field
+                + '&sort_direction=' + this.sort_direction)
                 .then(response => {
                     this.posts = response.data;
                 });
