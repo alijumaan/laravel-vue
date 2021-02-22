@@ -9,14 +9,13 @@
         <style>
             .active-menu {
                 font-weight: bold;
-                text-decoration: underline;
             }
         </style>
     </head>
     <body class="antialiased">
 
         <div id="app">
-            <app></app>
+            <app />
         </div>
     </body>
     <script src="{{ mix('js/app.js') }}"></script>

@@ -1,7 +1,5 @@
 <template>
-
     <div>
-
         <Navbar />
 
         <main class="py-4">
@@ -9,9 +7,7 @@
                 <router-view />
             </div>
         </main>
-
     </div>
-
 </template>
 
 <script>

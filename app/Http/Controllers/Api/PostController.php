@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -26,5 +27,17 @@ class PostController extends Controller
         })->orderBy($sortField, $sortDirection)->paginate(3);
 
         return PostResource::collection($posts);
+    }
+
+    public function store(StorePostRequest $request)
+    {
+        if ($request->hasFile('thumbnail')) {
+            $filename = $request->thumbnail->getClientOriginalName();
+            info($filename); // Writing to a log, for example
+        }
+
+        $post = Post::create($request->validated());
+
+        return new PostResource($post);
     }
 }
