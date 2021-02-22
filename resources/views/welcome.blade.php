@@ -6,11 +6,21 @@
 
         <title>Laravel</title>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <style>
+            .active-menu {
+                font-weight: bold;
+                text-decoration: underline;
+            }
+        </style>
     </head>
     <body class="antialiased">
-       <div id="app" class="container mt-5">
-           <posts-index></posts-index>
-       </div>
+
+        <div id="app">
+            <app></app>
+        </div>
     </body>
     <script src="{{ mix('js/app.js') }}"></script>
 </html>
+
+
+

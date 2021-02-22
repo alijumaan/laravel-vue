@@ -1,6 +1,6 @@
 <template>
 <div>
-    <select v-model="category_id" class="form-control col-md-4">
+    <select v-model="category_id" class="form-control col-md-4 mb-3">
         <option value="">-- choose category</option>
         <option v-for="category in categories" :value="category.id">
             {{ category.name }}
@@ -34,7 +34,9 @@
             <td>{{  post.title }}</td>
             <td>{{  post.post_text.substring(0, 50) }}</td>
             <td>{{  post.created_at }}</td>
-            <td></td>
+            <td>
+                <a href="#" class="btn btn-primary btn-sm">Edit</a>
+            </td>
         </tr>
         </tbody>
     </table>

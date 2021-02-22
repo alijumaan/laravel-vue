@@ -11,12 +11,12 @@ class PostController extends Controller
 {
     public function index()
     {
-        $sortField = \request('sort_field', 'created_at');
+        $sortField = request('sort_field', 'created_at');
         if (!in_array($sortField, ['title', 'post_text', 'created_at'])) {
             $sortField = 'created_at';
         }
 
-        $sortDirection = \request('sort_direction', 'desc');
+        $sortDirection = request('sort_direction', 'desc');
         if (!in_array($sortDirection, ['asc', 'desc'])) {
             $sortDirection = 'desc';
         }
