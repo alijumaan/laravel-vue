@@ -1,6 +1,8 @@
 <template>
     <div class="row justify-content-center">
         <div class="col-8">
+            <router-link :to="{ name: 'posts.index'}"
+                         class="btn btn-secondary btn-sm mb-3">Back</router-link>
             <form @submit.prevent="submit_form">
                 <div class="form-group">
                     <label for="title">Post title:</label>
@@ -64,6 +66,9 @@ export default {
         axios.get('/api/categories').then(response => {
             this.categories = response.data.data;
         })
+        axios.get('/api/posts/' + this.$route.params.id).then(response => {
+            this.fields = response.data.data;
+        })
     },
     methods: {
         select_file(event) {
@@ -72,12 +77,8 @@ export default {
         submit_form() {
             this.form_submitting = true;
 
-            let fields = new FormData();
-            for (let key in this.fields) {
-                fields.append(key,this.fields[key])
-            }
 
-            axios.post('/api/posts', fields).then(response => {
+            axios.put('/api/posts/' + this.$route.params.id, this.fields).then(response => {
                 this.$router.push('/');
                 this.form_submitting = false;
             }).catch(error => {

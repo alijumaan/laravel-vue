@@ -12,18 +12,18 @@
             <th>Id</th>
             <th>
                 <a href="#" @click.prevent="change_sort('title')">Title</a>
-                <span v-if="this.sort_field == 'title' && this.sort_direction == 'asc'">&uarr;</span>
-                <span v-if="this.sort_field == 'title' && this.sort_direction == 'desc'">&darr;</span>
+                <span v-if="this.sort_field === 'title' && this.sort_direction === 'asc'">&uarr;</span>
+                <span v-if="this.sort_field === 'title' && this.sort_direction === 'desc'">&darr;</span>
             </th>
             <th>
                 <a href="#" @click.prevent="change_sort('post_text')">Post text</a>
-                <span  v-if="this.sort_field == 'post_text' && this.sort_direction == 'asc'">&uarr;</span>
-                <span  v-if="this.sort_field == 'post_text' && this.sort_direction == 'desc'">&darr;</span>
+                <span  v-if="this.sort_field === 'post_text' && this.sort_direction === 'asc'">&uarr;</span>
+                <span  v-if="this.sort_field === 'post_text' && this.sort_direction === 'desc'">&darr;</span>
             </th>
             <th>
                 <a href="#" @click.prevent="change_sort('created_at')">Created date</a>
-                <span  v-if="this.sort_field == 'created_at' && this.sort_direction == 'asc'">&uarr;</span>
-                <span  v-if="this.sort_field == 'created_at' && this.sort_direction == 'desc'">&darr;</span>
+                <span  v-if="this.sort_field === 'created_at' && this.sort_direction === 'asc'">&uarr;</span>
+                <span  v-if="this.sort_field === 'created_at' && this.sort_direction === 'desc'">&darr;</span>
             </th>
             <th>Actions</th>
         </tr>
@@ -35,7 +35,8 @@
             <td>{{  post.post_text.substring(0, 50) }}</td>
             <td>{{  post.created_at }}</td>
             <td>
-                <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                <router-link :to="{ name: 'posts.edit', params: { id: post.id } }"
+                             class="btn btn-primary btn-sm">Edit</router-link>
             </td>
         </tr>
         </tbody>
