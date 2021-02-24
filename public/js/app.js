@@ -2003,10 +2003,14 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       axios.post('/api/posts', fields).then(function (response) {
+        swal("Post created successfully", "", "success");
+
         _this2.$router.push('/');
 
         _this2.form_submitting = false;
       })["catch"](function (error) {
+        swal("Error happened!", "", "error");
+
         if (error.response.status === 422) {
           _this2.errors = error.response.data.errors;
         }
@@ -2118,7 +2122,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.form_submitting = false;
       })["catch"](function (error) {
-        swal("Error!", "", "Error happened");
+        swal("Error happened!", "", "error");
 
         if (error.response.status === 422) {
           _this2.errors = error.response.data.errors;

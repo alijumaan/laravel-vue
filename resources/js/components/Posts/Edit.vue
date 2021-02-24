@@ -81,7 +81,7 @@ export default {
                 this.$router.push('/');
                 this.form_submitting = false;
             }).catch(error => {
-                swal("Error!", "", "Error happened");
+                swal("Error happened!", "", "error");
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors;
                 }
