@@ -37,6 +37,7 @@
             <td>
                 <router-link :to="{ name: 'posts.edit', params: { id: post.id } }"
                              class="btn btn-primary btn-sm">Edit</router-link>
+                <button class="btn btn-danger btn-sm" @click="delete_post(post.id)">Delete</button>
             </td>
         </tr>
         </tbody>
@@ -87,6 +88,26 @@ export default {
                 .then(response => {
                     this.posts = response.data;
                 });
+        },
+        delete_post(post_id) {
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary post!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    axios.delete('/api/posts/' + post_id).then(response => {
+                        this.getResults();
+                        swal("Post deleted successfully!", {
+                            icon: "success",
+                        });
+                    }).catch(error => {
+                        swal("Error!", "", "Error happened");
+                    })
+                }
+            });
         }
     }
 

@@ -76,12 +76,12 @@ export default {
         },
         submit_form() {
             this.form_submitting = true;
-
-
             axios.put('/api/posts/' + this.$route.params.id, this.fields).then(response => {
+                swal("Post updated successfully", "", "success");
                 this.$router.push('/');
                 this.form_submitting = false;
             }).catch(error => {
+                swal("Error!", "", "Error happened");
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors;
                 }
