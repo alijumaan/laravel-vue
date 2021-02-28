@@ -1,47 +1,59 @@
 <template>
 <div>
-    <select v-model="category_id" class="form-control col-md-4 mb-3">
-        <option value="">-- choose category</option>
-        <option v-for="category in categories" :value="category.id">
+    <select v-model="category_id" class="relative px-3 py-2 bg-white text-gray-500 focus:outline-none">
+        <option value="">-- choose category --</option>
+        <option v-for="category in categories" :value="category.id" >
             {{ category.name }}
         </option>
     </select>
-    <table class="table">
-        <thead>
+
+
+    <table class="min-w-full divide-y divide-gray-200 mt-7">
+        <thead class="bg-gray-50">
         <tr>
-            <th>Id</th>
-            <th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Id</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <a href="#" @click.prevent="change_sort('title')">Title</a>
                 <span v-if="this.sort_field === 'title' && this.sort_direction === 'asc'">&uarr;</span>
                 <span v-if="this.sort_field === 'title' && this.sort_direction === 'desc'">&darr;</span>
             </th>
-            <th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <a href="#" @click.prevent="change_sort('post_text')">Post text</a>
                 <span  v-if="this.sort_field === 'post_text' && this.sort_direction === 'asc'">&uarr;</span>
                 <span  v-if="this.sort_field === 'post_text' && this.sort_direction === 'desc'">&darr;</span>
             </th>
-            <th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <a href="#" @click.prevent="change_sort('created_at')">Created date</a>
                 <span  v-if="this.sort_field === 'created_at' && this.sort_direction === 'asc'">&uarr;</span>
                 <span  v-if="this.sort_field === 'created_at' && this.sort_direction === 'desc'">&darr;</span>
             </th>
-            <th>Actions</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="bg-white divide-y divide-gray-200">
         <tr v-for="post in posts.data">
-            <td>{{  post.id }}</td>
-            <td>{{  post.title }}</td>
-            <td>{{  post.post_text.substring(0, 50) }}</td>
-            <td>{{  post.created_at }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                {{  post.id }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                {{ post.title }} <br>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                {{  post.post_text }} <br>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                {{ post.created_at }} <br>
+            </td>
             <td>
-                <router-link :to="{ name: 'posts.edit', params: { id: post.id } }"
-                             class="btn btn-primary btn-sm">Edit</router-link>
-                <button class="btn btn-danger btn-sm" @click="delete_post(post.id)">Delete</button>
+                <router-link class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150"
+                             :to="{ name: 'posts.edit', params: { id: post.id } }">Edit</router-link>
+                <button class="inline-flex items-center justify-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-600 transition ease-in-out duration-150"
+                        @click="delete_post(post.id)">Delete</button>
             </td>
         </tr>
         </tbody>
     </table>
+
     <pagination :data="posts" @pagination-change-page="getResults"></pagination>
 </div>
 </template>
@@ -104,7 +116,7 @@ export default {
                             icon: "success",
                         });
                     }).catch(error => {
-                        swal("Error!", "", "Error happened");
+                        swal("Error!", "", "error");
                     })
                 }
             });

@@ -24,7 +24,7 @@ class PostController extends Controller
 
         $posts = Post::when(request('category_id', '') != '', function ($query) {
             $query->where('category_id', request('category_id'));
-        })->orderBy($sortField, $sortDirection)->paginate(3);
+        })->orderBy($sortField, $sortDirection)->paginate(5);
 
         return PostResource::collection($posts);
     }

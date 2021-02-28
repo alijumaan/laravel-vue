@@ -1,23 +1,15 @@
 <template>
     <div>
-        <Navbar />
-
-        <main class="py-4">
-            <div class="container">
-                <router-view />
-            </div>
-        </main>
+        <router-view />
     </div>
 </template>
 
 <script>
-import Navbar from "./Navbar.vue";
-
-export default {
-    components: {Navbar}
-}
+export default {}
 </script>
 
 <style>
-
+.active-menu {
+    font-weight: bolder;
+}
 </style>

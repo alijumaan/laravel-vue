@@ -7,6 +7,10 @@ export default {
     routes: [
         {
             path: '/',
+            name: 'home'
+        },
+        {
+            path: '/posts',
             component: PostsIndex,
             name: 'posts.index'
         },
