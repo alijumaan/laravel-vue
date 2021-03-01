@@ -1,6 +1,6 @@
 <template>
 <div>
-    <select v-model="category_id" class="relative px-3 py-2 bg-white text-gray-500 focus:outline-none">
+    <select v-model="category_id" class="relative px-3 py-2 bg-gray-900 text-white rounded focus:outline-none">
         <option value="">-- choose category --</option>
         <option v-for="category in categories" :value="category.id" >
             {{ category.name }}
@@ -39,14 +39,15 @@
                 {{ post.title }} <br>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-                {{  post.post_text }} <br>
+                {{  post.post_text.substring(0, 50) }}... <br>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
                 {{ post.created_at }} <br>
             </td>
             <td>
-                <router-link class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150"
-                             :to="{ name: 'posts.edit', params: { id: post.id } }">Edit</router-link>
+                <router-link
+                    class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150"
+                    :to="{ name: 'posts.edit', params: { id: post.id } }">Edit</router-link>
                 <button class="inline-flex items-center justify-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-600 transition ease-in-out duration-150"
                         @click="delete_post(post.id)">Delete</button>
             </td>
@@ -55,6 +56,7 @@
     </table>
 
     <pagination :data="posts" @pagination-change-page="getResults"></pagination>
+
 </div>
 </template>
 
@@ -67,6 +69,8 @@ export default {
             category_id: '',
             sort_field: 'created_at',
             sort_direction: 'desc',
+            showForm: false,
+            word: 'Show'
         }
     },
     mounted() {

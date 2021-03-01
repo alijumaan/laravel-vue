@@ -4149,6 +4149,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -4156,7 +4158,9 @@ __webpack_require__.r(__webpack_exports__);
       categories: {},
       category_id: '',
       sort_field: 'created_at',
-      sort_direction: 'desc'
+      sort_direction: 'desc',
+      showForm: false,
+      word: 'Show'
     };
   },
   mounted: function mounted() {
@@ -4215,6 +4219,341 @@ __webpack_require__.r(__webpack_exports__);
             swal("Error!", "", "error");
           });
         }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Trips/TripForm.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Trips/TripForm.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      adults: 0,
+      children: 0,
+      from_country: {},
+      from_city: {},
+      from_cities: [],
+      from_date: '',
+      to_country: {},
+      to_city: {},
+      to_cities: [],
+      to_date: '',
+      countries: [],
+      current_step: 1,
+      max_step: 1
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('countries').then(function (response) {
+      return _this.countries = response.data.data;
+    });
+  },
+  computed: {
+    price: function price() {
+      var month = this.getFromMonth();
+      var coefficient = 1;
+
+      if (!isNaN(month)) {
+        month++;
+
+        if (month === 6) {
+          coefficient = 1.5;
+        }
+
+        if (month === 7) {
+          coefficient = 1.3;
+        }
+
+        if (month === 8) {
+          coefficient = 1.1;
+        }
+      }
+
+      var price = (this.adults * 100 + this.children * 50) * coefficient;
+      return (Math.round(price * 100) / 100).toFixed(2);
+    }
+  },
+  methods: {
+    getFromCity: function getFromCity() {
+      var _this2 = this;
+
+      this.from_cities = [];
+      axios.get('cities', {
+        params: {
+          country: this.from_country.id
+        }
+      }).then(function (response) {
+        _this2.from_cities = response.data.data;
+      });
+    },
+    getToCity: function getToCity() {
+      var _this3 = this;
+
+      this.to_cities = [];
+      axios.get('cities', {
+        params: {
+          country: this.to_country.id
+        }
+      }).then(function (response) {
+        _this3.to_country = response.data.data;
+      });
+    },
+    validate: function validate() {
+      if (this.current_step === 1) {
+        if (_.isEmpty(this.from_country) || _.isEmpty(this.from_city || _.isEmpty(this.from_date))) {
+          return false;
+        }
+      }
+
+      if (this.current_step === 2) {
+        if (_.isEmpty(this.to_country) || _.isEmpty(this.to_city) || _.isEmpty(this.to_date)) {
+          return false;
+        }
+      }
+
+      if (this.current_step === 3) {
+        if (this.adults === 0 && this.children === 0) {
+          return false;
+        }
+      }
+
+      return true;
+    },
+    getFromMonth: function getFromMonth() {
+      return moment(this.from_date).month();
+    },
+    advanceStep: function advanceStep() {
+      if (!this.validate()) {
+        return;
+      }
+
+      if (this.max_step === 3) {
+        return this.submitForm();
+      }
+
+      this.current_step++;
+
+      if (this.max_step < this.current_step) {
+        this.max_step = this.current_step;
+      }
+    },
+    goToStep: function goToStep(value) {
+      if (!this.validate()) {
+        return;
+      }
+
+      this.current_step = value;
+    },
+    submitForm: function submitForm() {
+      axios.post('trips', {
+        'city_from_id': this.from_city.id,
+        'date_from': this.date_from,
+        'city_to_id': this.city_to_id,
+        'date_to': this.date_to,
+        'adults': this.adults,
+        'children': this.children
+      }).then(function () {
+        return location.replace('/trips');
       });
     }
   }
@@ -4303,6 +4642,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Posts_Index_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Posts/Index.vue */ "./resources/js/components/Posts/Index.vue");
 /* harmony import */ var _components_Posts_Create_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Posts/Create.vue */ "./resources/js/components/Posts/Create.vue");
 /* harmony import */ var _components_Posts_Edit_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Posts/Edit.vue */ "./resources/js/components/Posts/Edit.vue");
+/* harmony import */ var _components_Trips_TripForm_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Trips/TripForm.vue */ "./resources/js/components/Trips/TripForm.vue");
+
 
 
 
@@ -4323,6 +4664,10 @@ __webpack_require__.r(__webpack_exports__);
     path: '/posts/edit/:id',
     component: _components_Posts_Edit_vue__WEBPACK_IMPORTED_MODULE_2__.default,
     name: 'posts.edit'
+  }, {
+    path: '/trips',
+    component: _components_Trips_TripForm_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    name: 'trips.index'
   }]
 });
 
@@ -22916,6 +23261,45 @@ component.options.__file = "resources/js/components/Posts/Index.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Trips/TripForm.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/Trips/TripForm.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _TripForm_vue_vue_type_template_id_3e2a40d5_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TripForm.vue?vue&type=template&id=3e2a40d5&scoped=true& */ "./resources/js/components/Trips/TripForm.vue?vue&type=template&id=3e2a40d5&scoped=true&");
+/* harmony import */ var _TripForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TripForm.vue?vue&type=script&lang=js& */ "./resources/js/components/Trips/TripForm.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _TripForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _TripForm_vue_vue_type_template_id_3e2a40d5_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _TripForm_vue_vue_type_template_id_3e2a40d5_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "3e2a40d5",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Trips/TripForm.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/App.vue?vue&type=script&lang=js&":
 /*!******************************************************************!*\
   !*** ./resources/js/components/App.vue?vue&type=script&lang=js& ***!
@@ -22977,6 +23361,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Posts/Index.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Trips/TripForm.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/Trips/TripForm.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TripForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TripForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Trips/TripForm.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TripForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -23057,6 +23457,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_62b1414a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_62b1414a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=62b1414a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Posts/Index.vue?vue&type=template&id=62b1414a&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Trips/TripForm.vue?vue&type=template&id=3e2a40d5&scoped=true&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/Trips/TripForm.vue?vue&type=template&id=3e2a40d5&scoped=true& ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TripForm_vue_vue_type_template_id_3e2a40d5_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TripForm_vue_vue_type_template_id_3e2a40d5_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TripForm_vue_vue_type_template_id_3e2a40d5_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TripForm.vue?vue&type=template&id=3e2a40d5&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Trips/TripForm.vue?vue&type=template&id=3e2a40d5&scoped=true&");
 
 
 /***/ }),
@@ -23636,7 +24053,7 @@ var render = function() {
             }
           ],
           staticClass:
-            "relative px-3 py-2 bg-white text-gray-500 focus:outline-none",
+            "relative px-3 py-2 bg-gray-900 text-white rounded focus:outline-none",
           on: {
             change: function($event) {
               var $$selectedVal = Array.prototype.filter
@@ -23803,7 +24220,11 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("td", { staticClass: "px-6 py-4 whitespace-nowrap" }, [
-                _vm._v("\n                " + _vm._s(post.post_text) + " "),
+                _vm._v(
+                  "\n                " +
+                    _vm._s(post.post_text.substring(0, 50)) +
+                    "... "
+                ),
                 _c("br")
               ]),
               _vm._v(" "),
@@ -23858,6 +24279,660 @@ var render = function() {
   )
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Trips/TripForm.vue?vue&type=template&id=3e2a40d5&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Trips/TripForm.vue?vue&type=template&id=3e2a40d5&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("ul", { staticClass: "flex border-b" }, [
+      _c("li", { staticClass: "-mb-px mr-1" }, [
+        _c(
+          "a",
+          {
+            staticClass:
+              "bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold",
+            class: { active: _vm.current_step === 1 },
+            attrs: { href: "#" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.goToStep(1)
+              }
+            }
+          },
+          [_vm._v("From")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "mr-1" }, [
+        _c(
+          "a",
+          {
+            staticClass:
+              "bg-white inline-block py-2 px-4 text-gray-400 font-semibold",
+            class: {
+              disabled: _vm.max_step < 2,
+              active: _vm.current_step === 2
+            },
+            attrs: { href: "#" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.goToStep(2)
+              }
+            }
+          },
+          [_vm._v("To")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "mr-1" }, [
+        _c(
+          "a",
+          {
+            staticClass:
+              "bg-white inline-block py-2 px-4 text-gray-400 font-semibold",
+            class: {
+              disabled: _vm.max_step < 3,
+              active: _vm.current_step === 3
+            },
+            attrs: { href: "#" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.goToStep(3)
+              }
+            }
+          },
+          [_vm._v("Passengers")]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("form", { staticClass: "w-full max-w-lg mt-5" }, [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.current_step === 1,
+              expression: "current_step === 1"
+            }
+          ]
+        },
+        [
+          _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+            _c("div", { staticClass: "w-full px-3" }, [
+              _c(
+                "label",
+                {
+                  staticClass:
+                    "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                  attrs: { for: "from_country" }
+                },
+                [
+                  _vm._v(
+                    "\n                        From Country *\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "relative" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.from_country,
+                        expression: "from_country"
+                      }
+                    ],
+                    staticClass:
+                      "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                    attrs: { id: "from_country" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.from_country = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.getFromCity
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", [_vm._v("Texas")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("Texas")])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "fill-current h-4 w-4",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 20 20"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+            _c("div", { staticClass: "w-full px-3" }, [
+              _c(
+                "label",
+                {
+                  staticClass:
+                    "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                  attrs: { for: "from_city" }
+                },
+                [
+                  _vm._v(
+                    "\n                        From City *\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "relative" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.from_city,
+                        expression: "from_city"
+                      }
+                    ],
+                    staticClass:
+                      "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                    attrs: { id: "from_city" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.from_city = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.getFromCity
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", [_vm._v("New Mexico")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("New Mexico")])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "fill-current h-4 w-4",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 20 20"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+            _c("div", { staticClass: "w-full px-3" }, [
+              _c(
+                "label",
+                {
+                  staticClass:
+                    "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                  attrs: { for: "from_date" }
+                },
+                [
+                  _vm._v(
+                    "\n                        From Date *\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.from_date,
+                    expression: "from_date"
+                  }
+                ],
+                staticClass:
+                  "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                attrs: { id: "from_date", type: "date" },
+                domProps: { value: _vm.from_date },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.from_date = $event.target.value
+                  }
+                }
+              })
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.current_step === 2,
+              expression: "current_step === 2"
+            }
+          ]
+        },
+        [
+          _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+            _c("div", { staticClass: "w-full px-3" }, [
+              _c(
+                "label",
+                {
+                  staticClass:
+                    "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                  attrs: { for: "to_country" }
+                },
+                [
+                  _vm._v(
+                    "\n                            To Country *\n                        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "relative" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.to_country,
+                        expression: "to_country"
+                      }
+                    ],
+                    staticClass:
+                      "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                    attrs: { id: "to_country" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.to_country = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.getFromCity
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", [_vm._v("Texas")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("Texas")])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "fill-current h-4 w-4",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 20 20"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+            _c("div", { staticClass: "w-full px-3" }, [
+              _c(
+                "label",
+                {
+                  staticClass:
+                    "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                  attrs: { for: "to_city" }
+                },
+                [
+                  _vm._v(
+                    "\n                            To City *\n                        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "relative" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.to_city,
+                        expression: "to_city"
+                      }
+                    ],
+                    staticClass:
+                      "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                    attrs: { id: "to_city" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.to_city = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.getFromCity
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", [_vm._v("New Mexico")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("New Mexico")])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "fill-current h-4 w-4",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 20 20"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+            _c("div", { staticClass: "w-full px-3" }, [
+              _c(
+                "label",
+                {
+                  staticClass:
+                    "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                  attrs: { for: "to_date" }
+                },
+                [
+                  _vm._v(
+                    "\n                        To Date *\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.to_date,
+                    expression: "to_date"
+                  }
+                ],
+                staticClass:
+                  "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                attrs: { id: "to_date", type: "date" },
+                domProps: { value: _vm.to_date },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.to_date = $event.target.value
+                  }
+                }
+              })
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.current_step === 3,
+              expression: "current_step === 3"
+            }
+          ]
+        },
+        [_vm._m(0), _vm._v(" "), _vm._m(1)]
+      ),
+      _vm._v(" "),
+      _vm._m(2),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow",
+          attrs: { type: "button" },
+          on: { click: _vm.advanceStep }
+        },
+        [
+          _vm.max_step === 3
+            ? _c("span", [_vm._v("Submit")])
+            : _c("span", [_vm._v("Next")])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+      _c("div", { staticClass: "w-full px-3" }, [
+        _c(
+          "label",
+          {
+            staticClass:
+              "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+            attrs: { for: "adults" }
+          },
+          [_vm._v("\n                        Adults *\n                    ")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          staticClass:
+            "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+          attrs: { id: "adults", type: "text" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+      _c("div", { staticClass: "w-full px-3" }, [
+        _c(
+          "label",
+          {
+            staticClass:
+              "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+            attrs: { for: "children" }
+          },
+          [_vm._v("\n                        Children *\n                    ")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          staticClass:
+            "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+          attrs: { id: "children", type: "text" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+      _c("div", { staticClass: "w-full px-3" }, [
+        _c(
+          "label",
+          {
+            staticClass:
+              "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          },
+          [_vm._v("\n                    Price :\n                ")]
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

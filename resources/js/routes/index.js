@@ -1,6 +1,7 @@
 import PostsIndex from '../components/Posts/Index.vue'
 import PostsCreate from '../components/Posts/Create.vue'
 import PostsEdit from '../components/Posts/Edit.vue'
+import TripsIndex from '../components/Trips/TripForm.vue'
 
 export default {
     mode: 'history',
@@ -23,6 +24,11 @@ export default {
             path: '/posts/edit/:id',
             component: PostsEdit,
             name: 'posts.edit'
+        },
+        {
+            path: '/trips',
+            component: TripsIndex,
+            name: 'trips.index'
         }
     ]
 }

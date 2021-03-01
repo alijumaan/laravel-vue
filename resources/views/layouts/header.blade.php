@@ -2,21 +2,32 @@
 
     <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
         <ul class="flex">
-            <li>
+            <li class="mr-6">
+                <router-link
+                    class="text-gray-500 hover:text-blue-800"
+                    active-class="active-menu px-4"
+                    exact :to="{ name: 'home'}">Home
+                </router-link>
+            </li>
+            <li class="mr-6">
                 <router-link
                     active-class="active-menu px-4"
                     exact :to="{ name: 'posts.index'}"
-                    class="nav-link">Posts list
+                    class="text-gray-500 hover:text-blue-800">Posts list
                 </router-link>
-                <router-link
-                    active-class="active-menu px-4"
-                    exact :to="{ name: 'home'}"
-                    class="nav-link">Home
-                </router-link>
+            </li>
+            <li class="mr-6">
                 <router-link
                     active-class="active-menu px-4"
                     exact :to="{ name: 'posts.create'}"
-                    class="nav-link">Add new post
+                    class="text-gray-500 hover:text-blue-800">Add new post
+                </router-link>
+            </li>
+            <li class="mr-6">
+                <router-link
+                    active-class="active-menu px-4"
+                    exact :to="{ name: 'trips.index'}"
+                    class="text-gray-500 hover:text-blue-800">Trips
                 </router-link>
             </li>
         </ul>

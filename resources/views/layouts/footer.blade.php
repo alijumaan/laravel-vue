@@ -1,90 +1,8 @@
 <footer class="text-gray-700 border-t body-font">
-    <div class="container flex flex-col flex-wrap p-8 mx-auto md:items-center lg:items-start md:flex-row md:flex-no-wrap ">
-        <div class="flex-shrink-0 w-64 mx-auto text-center md:mx-0 md:text-left">
-            <a class="flex items-center justify-center font-medium text-gray-900 title-font md:justify-start ">
-                <div class="w-2 h-2 p-2 mr-2 rounded-full bg-gradient-to-tr from-cyan-400 to-lightBlue-500">
-                </div>
-                <h2
-                    class="text-lg font-bold tracking-tighter text-black uppercase transition duration-500 ease-in-out transform hover:text-lightBlack-500 dark:text-lightBlue-400">
-                    Wickedblocks
-                </h2>
-            </a>
-        </div>
-        <div class="flex flex-wrap flex-grow mt-8 -mb-10 text-left md:pl-20 md:mt-0 ">
-            <div class="w-full px-4 lg:w-1/3 md:w-1/2">
-                <h1 class="mb-3 text-sm font-semibold tracking-widest text-black uppercase title-font">
-                    Product
-                </h1>
-                <nav class="mb-10 list-none">
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">Email Templates</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">Web Templates</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">Figma Files</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">Sketch Files</a>
-                    </li>
-                </nav>
-            </div>
-            <div class="w-full px-4 lg:w-1/3 md:w-1/2">
-                <h1 class="mb-3 text-sm font-semibold tracking-widest text-black uppercase title-font">
-                    Company
-                </h1>
-                <nav class="mb-10 list-none">
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">Home</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">About</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">Carriers</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">Pricing</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800"> Security</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800"> Contact Us</a>
-                    </li>
-                </nav>
-            </div>
-            <div class="w-full px-4 lg:w-1/3 md:w-1/2">
-                <h1 class="mb-3 text-sm font-semibold tracking-widest text-black uppercase title-font">Legal
-                </h1>
-                <nav class="mb-10 list-none">
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">Privacy Policy</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">Terms Of Service</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">Trademark Policy</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">Inactivity Policy</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800"> DPA</a>
-                    </li>
-                    <li>
-                        <a class="text-sm text-gray-600 hover:text-gray-800">SLA</a>
-                    </li>
-                </nav>
-            </div>
-        </div>
-    </div>
     <div class="bg-black">
         <div class="container flex flex-col flex-wrap px-5 py-6 mx-auto sm:flex-row">
-            <p class="text-sm text-center text-gray-200 sm:text-left ">© 2020
-            </p>
+            <p class="text-sm text-center text-gray-200 sm:text-left ">
+                <a href="https://alijumaan.com" target="_blank">AliJumaan</a> © 2020</p>
             <span class="inline-flex justify-center mt-2 sm:ml-auto sm:mt-0 sm:justify-start">
                 <a class="text-white hover:text-blue-500">
                  <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -107,7 +25,7 @@
                      <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
                  </svg>
                 </a>
-                </span>
+            </span>
         </div>
     </div>
 </footer>
