@@ -2,21 +2,21 @@
     <div>
         <ul class="flex border-b">
             <li class="-mb-px mr-1">
-                <a class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold"
-                   :class="{'active': current_step === 1}"
+                <a class="bg-white inline-block py-2 px-4 text-gray-400 font-semibold"
+                   :class="{'py-2 px-4 text-gray-400': max_step < 2, 'border-l border-t border-r rounded-t py-2 px-4 text-blue-700': current_step === 1}"
                    @click.prevent="goToStep(1)"
                    href="#" >From</a>
             </li>
             <li class="mr-1">
                 <a
                     class="bg-white inline-block py-2 px-4 text-gray-400 font-semibold"
-                    :class="{'disabled': max_step < 2, 'active': current_step === 2}"
+                    :class="{'py-2 px-4 text-gray-400': max_step < 2, 'border-l border-t border-r rounded-t py-2 px-4 text-blue-700': current_step === 2}"
                     @click.prevent="goToStep(2)"
                     href="#">To</a>
             </li>
             <li class="mr-1">
                 <a class="bg-white inline-block py-2 px-4 text-gray-400 font-semibold"
-                   :class="{'disabled': max_step < 3, 'active': current_step === 3}"
+                   :class="{'py-2 px-4 text-gray-400': max_step < 3, 'border-l border-t border-r rounded-t py-2 px-4 text-blue-700': current_step === 3}"
                    @click.prevent="goToStep(3)"
                    href="#">Passengers</a>
             </li>
@@ -166,18 +166,17 @@
             </div>
 
             <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
+                <div class="w-full px-3 py-2">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Price :
                     </label>
                 </div>
-            </div>
-
-            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-                @click="advanceStep" type="button">
+                <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                        @click="advanceStep" type="button">
                     <span v-if="max_step === 3">Submit</span>
                     <span v-else>Next</span>
-            </button>
+                </button>
+            </div>
 
         </form>
 

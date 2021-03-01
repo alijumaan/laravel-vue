@@ -4422,7 +4422,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -24308,8 +24307,12 @@ var render = function() {
           "a",
           {
             staticClass:
-              "bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold",
-            class: { active: _vm.current_step === 1 },
+              "bg-white inline-block py-2 px-4 text-gray-400 font-semibold",
+            class: {
+              "py-2 px-4 text-gray-400": _vm.max_step < 2,
+              "border-l border-t border-r rounded-t py-2 px-4 text-blue-700":
+                _vm.current_step === 1
+            },
             attrs: { href: "#" },
             on: {
               click: function($event) {
@@ -24329,8 +24332,9 @@ var render = function() {
             staticClass:
               "bg-white inline-block py-2 px-4 text-gray-400 font-semibold",
             class: {
-              disabled: _vm.max_step < 2,
-              active: _vm.current_step === 2
+              "py-2 px-4 text-gray-400": _vm.max_step < 2,
+              "border-l border-t border-r rounded-t py-2 px-4 text-blue-700":
+                _vm.current_step === 2
             },
             attrs: { href: "#" },
             on: {
@@ -24351,8 +24355,9 @@ var render = function() {
             staticClass:
               "bg-white inline-block py-2 px-4 text-gray-400 font-semibold",
             class: {
-              disabled: _vm.max_step < 3,
-              active: _vm.current_step === 3
+              "py-2 px-4 text-gray-400": _vm.max_step < 3,
+              "border-l border-t border-r rounded-t py-2 px-4 text-blue-700":
+                _vm.current_step === 3
             },
             attrs: { href: "#" },
             on: {
@@ -24847,22 +24852,24 @@ var render = function() {
         [_vm._m(0), _vm._v(" "), _vm._m(1)]
       ),
       _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow",
-          attrs: { type: "button" },
-          on: { click: _vm.advanceStep }
-        },
-        [
-          _vm.max_step === 3
-            ? _c("span", [_vm._v("Submit")])
-            : _c("span", [_vm._v("Next")])
-        ]
-      )
+      _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+        _vm._m(2),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow",
+            attrs: { type: "button" },
+            on: { click: _vm.advanceStep }
+          },
+          [
+            _vm.max_step === 3
+              ? _c("span", [_vm._v("Submit")])
+              : _c("span", [_vm._v("Next")])
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -24919,17 +24926,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
-      _c("div", { staticClass: "w-full px-3" }, [
-        _c(
-          "label",
-          {
-            staticClass:
-              "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-          },
-          [_vm._v("\n                    Price :\n                ")]
-        )
-      ])
+    return _c("div", { staticClass: "w-full px-3 py-2" }, [
+      _c(
+        "label",
+        {
+          staticClass:
+            "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        },
+        [_vm._v("\n                    Price :\n                ")]
+      )
     ])
   }
 ]
