@@ -146,8 +146,11 @@
                             Adults *
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                               step="1"
+                               min="0"
+                               v-model="adults"
                                id="adults"
-                               type="text" >
+                               type="number" >
                     </div>
                 </div>
 
@@ -158,8 +161,11 @@
                             Children *
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                               step="1"
+                               min="0"
+                               v-model="children"
                                id="children"
-                               type="text" >
+                               type="number" >
                     </div>
                 </div>
 
@@ -168,7 +174,7 @@
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full px-3 py-2">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Price :
+                        Price : <strong>$1500</strong>
                     </label>
                 </div>
                 <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
