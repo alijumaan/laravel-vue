@@ -1,12 +1,12 @@
 <template>
 <div>
-    <select v-model="category_id" class="relative px-3 py-2 bg-gray-900 text-white rounded focus:outline-none">
+    <select v-model="category_id"
+            class="relative px-3 py-2 bg-gray-900 text-white rounded focus:outline-none">
         <option value="">-- choose category --</option>
         <option v-for="category in categories" :value="category.id" >
             {{ category.name }}
         </option>
     </select>
-
 
     <table class="min-w-full divide-y divide-gray-200 mt-7">
         <thead class="bg-gray-50">
@@ -78,9 +78,6 @@ export default {
             this.categories = response.data.data
         })
         this.getResults();
-        // axios.get('/api/posts').then(response => {
-        //     this.posts = response.data.data;
-        // })
     },
     watch: {
       category_id(value) { this.getResults(); }
@@ -95,6 +92,7 @@ export default {
             }
             this.getResults();
         },
+
         // Our method to GET results from a Laravel endpoint
         getResults(page = 1) {
             axios.get('/api/posts?page=' + page
@@ -105,6 +103,7 @@ export default {
                     this.posts = response.data;
                 });
         },
+
         delete_post(post_id) {
             swal({
                 title: "Are you sure?",
@@ -126,7 +125,6 @@ export default {
             });
         }
     }
-
 
 }
 </script>

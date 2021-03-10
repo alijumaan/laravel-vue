@@ -2,6 +2,7 @@ import PostsIndex from '../components/Posts/Index.vue'
 import PostsCreate from '../components/Posts/Create.vue'
 import PostsEdit from '../components/Posts/Edit.vue'
 import TripsIndex from '../components/Trips/TripForm.vue'
+import CategoriesCreate from '../components/Categories/Create.vue'
 
 export default {
     mode: 'history',
@@ -29,6 +30,11 @@ export default {
             path: '/trips',
             component: TripsIndex,
             name: 'trips.index'
+        },
+        {
+            path: '/categories/create',
+            component: CategoriesCreate,
+            name: 'categories.create'
         }
     ]
 }

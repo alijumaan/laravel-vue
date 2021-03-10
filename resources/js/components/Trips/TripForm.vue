@@ -34,12 +34,16 @@
                         <div class="relative">
                             <select
                                 v-model="from_country" @change="getFromCity" id="from_country"
-                                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                <option>Texas</option>
-                                <option>Texas</option>
+                                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700
+                                py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                <option value="">-- From Country --</option>
+                                <option value="1">Saudi Arabia</option> /* test */
+                                <option :value="country" v-for="country in countries" :key="country.id">{country.name}</option>
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                </svg>
                             </div>
                         </div>
                     </div>
@@ -47,19 +51,22 @@
 
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full px-3">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                               for="from_city">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="from_city">
                             From City *
                         </label>
                         <div class="relative">
                             <select
                                 v-model="from_city" @change="getFromCity" id="from_city"
-                                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                <option>New Mexico</option>
-                                <option>New Mexico</option>
+                                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700
+                                py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                <option value="">-- From City --</option>
+                                <option value="1">Jeddah</option> /* test */
+                                <option :value="city" v-for="city in from_cities" :key="city.id">{city.name}</option>
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                </svg>
                             </div>
                         </div>
                     </div>
@@ -71,10 +78,9 @@
                                for="from_date">
                             From Date *
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                               v-model="from_date"
-                               id="from_date"
-                               type="date" >
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200
+                        rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                               v-model="from_date" id="from_date" type="date" >
                     </div>
                 </div>
 
@@ -90,13 +96,17 @@
                             </label>
                             <div class="relative">
                                 <select
-                                    v-model="to_country" @change="getFromCity" id="to_country"
-                                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option>Texas</option>
-                                    <option>Texas</option>
+                                    v-model="to_country" @change="getToCity" id="to_country"
+                                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700
+                                    py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="">-- To Country --</option>
+                                    <option value="1">Saudi Arabia</option> /* test */
+                                    <option :value="country" v-for="country in countries" :key="country.id">{country.name}</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                    </svg>
                                 </div>
                             </div>
                         </div>
@@ -110,13 +120,17 @@
                             </label>
                             <div class="relative">
                                 <select
-                                    v-model="to_city" @change="getFromCity" id="to_city"
-                                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option>New Mexico</option>
-                                    <option>New Mexico</option>
+                                    v-model="to_city" @change="getToCity" id="to_city"
+                                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700
+                                    py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="">-- To City --</option>
+                                    <option value="1">Abha</option> /* test */
+                                    <option :value="city" v-for="city in to_cities" :key="city.id">{city.name}</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                    </svg>
                                 </div>
                             </div>
                         </div>
@@ -124,14 +138,12 @@
 
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full px-3">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                               for="to_date">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="to_date">
                             To Date *
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                               v-model="to_date"
-                               id="to_date"
-                               type="date" >
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200
+                        rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                               v-model="to_date" id="to_date" type="date" >
                     </div>
                 </div>
 
@@ -146,11 +158,7 @@
                             Adults *
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                               step="1"
-                               min="0"
-                               v-model="adults"
-                               id="adults"
-                               type="number" >
+                               step="1" min="0" v-model="adults" id="adults" type="number" >
                     </div>
                 </div>
 
@@ -161,11 +169,7 @@
                             Children *
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                               step="1"
-                               min="0"
-                               v-model="children"
-                               id="children"
-                               type="number" >
+                               step="1" min="0" v-model="children" id="children" type="number" >
                     </div>
                 </div>
 
@@ -174,7 +178,7 @@
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full px-3 py-2">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Price : <strong>$1500</strong>
+                        Price : <strong>$5000</strong>
                     </label>
                 </div>
                 <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
@@ -210,7 +214,7 @@ export default {
         }
     },
     mounted() {
-      axios.get('countries')
+      axios.get('/countries')
           .then(response => this.countries = response.data.data)
     },
     computed: {
@@ -241,23 +245,24 @@ export default {
     methods: {
         getFromCity() {
             this.from_cities = []
-            axios.get('cities', {
+            axios.get('/cities', {
                 params: {
                     country: this.from_country.id
                 }
-            }).then(response => {
+            })
+                .then(response => {
                     this.from_cities = response.data.data
                 })
         },
 
         getToCity() {
           this.to_cities = []
-          axios.get('cities', {
+          axios.get('/cities', {
               params: {
                   country: this.to_country.id
               }
           }).then(response => {
-              this.to_country = response.data.data
+              this.to_cities = response.data.data
           })
         },
 
@@ -311,14 +316,15 @@ export default {
         },
 
         submitForm() {
-            axios.post('trips', {
+            axios.post('/trips', {
                 'city_from_id': this.from_city.id,
-                'date_from': this.date_from,
-                'city_to_id': this.city_to_id,
-                'date_to': this.date_to,
+                'date_from': this.from_date,
+                'city_to_id': this.to_city.id,
+                'date_to': this.to_date,
                 'adults': this.adults,
                 'children': this.children
-            }).then( () => location.replace('/trips'))
+            })
+                .then( () => location.replace('/trips'))
         }
     }
 }
