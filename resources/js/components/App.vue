@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <router-view />
+    <div class="container mx-auto px-4 h-full py-12 xl:px-64">
+        <router-view/>
     </div>
 </template>
 
@@ -9,7 +9,5 @@ export default {}
 </script>
 
 <style>
-.active-menu {
-    font-weight: bolder;
-}
+
 </style>
