@@ -3907,6 +3907,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      user: false,
       fields: {
         email: '',
         password: ''
@@ -3920,27 +3921,23 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.form_submitting = true;
-      var fields = new FormData();
+      axios.get('/sanctum/csrf-cookie').then(function (response) {
+        axios.post('/api/login', _this.fields).then(function (response) {
+          _this.user = true;
+          swal("Welcome back", "", "success");
 
-      for (var key in this.fields) {
-        fields.append(key, this.fields[key]);
-      }
+          _this.$router.push({
+            name: 'dashboard'
+          });
 
-      axios.post('/api/login', this.fields).then(function (response) {
-        swal("Welcome back", "", "success");
+          _this.form_submitting = false;
+        })["catch"](function (error) {
+          if (error.response.status === 422) {
+            _this.errors = error.response.data.errors;
+          }
 
-        _this.$router.push({
-          name: 'dashboard'
+          _this.form_submitting = false;
         });
-
-        _this.form_submitting = false;
-      })["catch"](function (error) {
-        // swal("Error happened!", "", "error");
-        if (error.response.status === 422) {
-          _this.errors = error.response.data.errors;
-        }
-
-        _this.form_submitting = false;
       });
     }
   }
@@ -5047,11 +5044,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.post('/api/logout').then(function () {
-        swal("Logout successfully", "", "success");
-
         _this2.$router.push({
           name: 'home'
         });
+
+        location.reload();
+        swal("Logout successfully", "", "success");
       });
     }
   }
@@ -5103,8 +5101,9 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_3__.default({
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.withCredentials = true;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-axios.defaults.withCredentials = true;
+window.axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 /***/ }),
 
@@ -24060,195 +24059,222 @@ var render = function() {
       "div",
       { staticClass: "flex content-center items-center justify-center h-full" },
       [
-        _c("div", { staticClass: "w-full lg:w-6/12 px-4" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
-            },
-            [
-              _c("div", { staticClass: "flex-auto px-4 lg:px-10 py-10 pt-4" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.submit_form($event)
-                      }
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "relative w-full mb-3" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "block uppercase text-gray-700 text-xs font-bold mb-2"
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Email\n                            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.fields.email,
-                            expression: "fields.email"
-                          }
-                        ],
-                        staticClass:
-                          "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150",
-                        attrs: { type: "email", placeholder: "Email" },
-                        domProps: { value: _vm.fields.email },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.fields, "email", $event.target.value)
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.errors && _vm.errors.email
-                        ? _c(
-                            "div",
-                            _vm._l(_vm.errors.email, function(error) {
-                              return _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "mt-3 list-disc list-inside text-sm text-red-600"
-                                },
-                                [_c("p", [_vm._v(_vm._s(error))])]
-                              )
-                            }),
-                            0
-                          )
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "relative w-full mb-3" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "block uppercase text-gray-700 text-xs font-bold mb-2"
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Password\n                            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.fields.password,
-                            expression: "fields.password"
-                          }
-                        ],
-                        staticClass:
-                          "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150",
-                        attrs: { type: "password", placeholder: "Password" },
-                        domProps: { value: _vm.fields.password },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.fields,
-                              "password",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.errors && _vm.errors.password
-                        ? _c(
-                            "div",
-                            _vm._l(_vm.errors.password, function(error) {
-                              return _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "mt-3 list-disc list-inside text-sm text-red-600"
-                                },
-                                [_c("p", [_vm._v(_vm._s(error))])]
-                              )
-                            }),
-                            0
-                          )
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "text-center mt-6" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150",
-                          attrs: {
-                            type: "submit",
-                            value: _vm.form_submitting ? "Login..." : "Sign In",
-                            disabled: _vm.form_submitting
-                          },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.submit_form($event)
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Sign In\n                            "
-                          )
-                        ]
-                      )
-                    ])
-                  ]
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "flex flex-wrap mt-6 relative" }, [
-            _vm._m(2),
-            _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.user,
+                expression: "!user"
+              }
+            ],
+            staticClass: "w-full lg:w-6/12 px-4"
+          },
+          [
             _c(
               "div",
-              { staticClass: "w-1/2 text-right" },
+              {
+                staticClass:
+                  "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
+              },
               [
                 _c(
-                  "router-link",
-                  {
-                    staticClass: "text-gray-300",
-                    attrs: { to: "/auth/register" }
-                  },
-                  [_c("small", [_vm._v("Create new account")])]
+                  "div",
+                  { staticClass: "flex-auto px-4 lg:px-10 py-10 pt-4" },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "form",
+                      {
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.submit_form($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "relative w-full mb-3" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass:
+                                "block uppercase text-gray-700 text-xs font-bold mb-2"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Email\n                            "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.fields.email,
+                                expression: "fields.email"
+                              }
+                            ],
+                            staticClass:
+                              "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150",
+                            attrs: { type: "email", placeholder: "Email" },
+                            domProps: { value: _vm.fields.email },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.fields,
+                                  "email",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.email
+                            ? _c(
+                                "div",
+                                _vm._l(_vm.errors.email, function(error) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "mt-3 list-disc list-inside text-sm text-red-600"
+                                    },
+                                    [_c("p", [_vm._v(_vm._s(error))])]
+                                  )
+                                }),
+                                0
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "relative w-full mb-3" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass:
+                                "block uppercase text-gray-700 text-xs font-bold mb-2"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Password\n                            "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.fields.password,
+                                expression: "fields.password"
+                              }
+                            ],
+                            staticClass:
+                              "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150",
+                            attrs: {
+                              type: "password",
+                              placeholder: "Password"
+                            },
+                            domProps: { value: _vm.fields.password },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.fields,
+                                  "password",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.password
+                            ? _c(
+                                "div",
+                                _vm._l(_vm.errors.password, function(error) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "mt-3 list-disc list-inside text-sm text-red-600"
+                                    },
+                                    [_c("p", [_vm._v(_vm._s(error))])]
+                                  )
+                                }),
+                                0
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "text-center mt-6" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150",
+                              attrs: {
+                                type: "submit",
+                                value: _vm.form_submitting
+                                  ? "Login..."
+                                  : "Sign In",
+                                disabled: _vm.form_submitting
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.submit_form($event)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Sign In\n                            "
+                              )
+                            ]
+                          )
+                        ])
+                      ]
+                    )
+                  ]
                 )
-              ],
-              1
-            )
-          ])
-        ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex flex-wrap mt-6 relative" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "w-1/2 text-right" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "text-gray-300",
+                      attrs: { to: "/auth/register" }
+                    },
+                    [_c("small", [_vm._v("Create new account")])]
+                  )
+                ],
+                1
+              )
+            ])
+          ]
+        )
       ]
     )
   ])
@@ -26382,7 +26408,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {}, [
-    _vm._v("\n        Dashboard "),
+    _vm._v("\n    Dashboard "),
+    _c("br"),
+    _vm._v("\n    Name: " + _vm._s(_vm.user.name)),
+    _c("br"),
+    _vm._v("\n    Email: " + _vm._s(_vm.user.email)),
     _c("br"),
     _vm._v(" "),
     _c(

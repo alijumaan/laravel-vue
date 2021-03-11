@@ -1,8 +1,8 @@
 <template>
     <div class="">
         Dashboard <br>
-<!--        Name: {{ user.name }}-->
-<!--        Email: {{ user.email }}-->
+        Name: {{ user.name }}<br>
+        Email: {{ user.email }}<br>
         <button @click.prevent="logout">Logout</button>
     </div>
 </template>
@@ -22,8 +22,9 @@ export default {
     methods: {
         logout() {
             axios.post('/api/logout').then(() => {
+                this.$router.push({name: 'home'});
+                location.reload();
                 swal("Logout successfully", "", "success");
-                this.$router.push({ name: 'home' });
             })
         }
     }

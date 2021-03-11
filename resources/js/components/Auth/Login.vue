@@ -1,9 +1,9 @@
 <template>
     <div class="">
         <div class="flex content-center items-center justify-center h-full">
-            <div class="w-full lg:w-6/12 px-4">
-                <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
-
+            <div v-show="!user" class="w-full lg:w-6/12 px-4">
+                <div
+                    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
                     <div class="flex-auto px-4 lg:px-10 py-10 pt-4">
                         <div class="text-gray-500 text-center mb-3 font-bold">
                             <h3>Login Form</h3>
@@ -82,6 +82,7 @@
 export default {
     data() {
         return {
+            user: false,
             fields: {
                 email: '',
                 password: ''
@@ -94,23 +95,22 @@ export default {
         submit_form() {
             this.form_submitting = true;
 
-            let fields = new FormData();
-            for (let key in this.fields) {
-                fields.append(key, this.fields[key])
-            }
+            axios.get('/sanctum/csrf-cookie').then(response => {
 
-            axios.post('/api/login', this.fields).then(response => {
-                swal("Welcome back", "", "success");
-                this.$router.push({name: 'dashboard'});
-                this.form_submitting = false;
-            })
-                .catch(error => {
-                    // swal("Error happened!", "", "error");
-                    if (error.response.status === 422) {
-                        this.errors = error.response.data.errors;
-                    }
+                axios.post('/api/login', this.fields).then(response => {
+                    this.user = true;
+                    swal("Welcome back", "", "success");
+                    this.$router.push({name: 'dashboard'});
                     this.form_submitting = false;
+
                 })
+                    .catch(error => {
+                        if (error.response.status === 422) {
+                            this.errors = error.response.data.errors;
+                        }
+                        this.form_submitting = false;
+                    })
+            })
         }
     }
 }

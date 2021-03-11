@@ -51,12 +51,12 @@ export default {
         {
             path: '/register',
             component: Register,
-            name: 'register'
+            name: 'register',
         },
         {
             path: '/login',
             component: Login,
-            name: 'login'
+            name: 'login',
         },
         {
             path: '/dashboard',
@@ -66,7 +66,7 @@ export default {
                 axios.get('/api/authenticated').then(() => {
                     next()
                 }).catch(() => {
-                    return next({name: 'login'})
+                    return next({ name: 'login' })
                 })
             }
         }

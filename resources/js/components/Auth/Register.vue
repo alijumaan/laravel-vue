@@ -96,10 +96,10 @@
 
                             <div class="text-center mt-6">
                                 <button @click.prevent="save_form"
-                                    class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                                    type="submit"
-                                    :value="form_submitting ? 'Create...' : 'Create Account'"
-                                    :disabled="form_submitting">
+                                        class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                                        type="submit"
+                                        :value="form_submitting ? 'Create...' : 'Create Account'"
+                                        :disabled="form_submitting">
                                     Create Account
                                 </button>
                             </div>
@@ -131,9 +131,10 @@ export default {
                 swal("Created successfully", "", "success");
                 this.$router.push({name: 'dashboard'});
                 this.form_submitting = false;
-            }).catch((error) => {
-                this.errors = error.response.data.errors;
             })
+                .catch((error) => {
+                    this.errors = error.response.data.errors;
+                })
         }
     }
 }

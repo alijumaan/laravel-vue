@@ -12,8 +12,12 @@ Route::middleware('auth:sanctum')->get('/authenticated', function () {
     return true;
 });
 
-Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
 
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
+});
+
+Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
 Route::apiResource('categories', \App\Http\Controllers\Api\CategoryController::class)
     ->only('index', 'store');
 
