@@ -49,6 +49,10 @@ class PostController extends Controller
 
     public function update(StorePostRequest $request, Post $post)
     {
+//        if (!auth()->user()->tokenCan('posts-edit')) {
+//            abort(403, 'Unauthorized');
+//        }
+
         $post->update($request->validated());
 
         return new PostResource($post);
@@ -56,6 +60,10 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+//        if (!auth()->user()->tokenCan('posts-delete')) {
+//            abort(403, 'Unauthorized');
+//        }
+
         $post->delete();
 
         return response()->noContent();

@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Ali',
             'email' => 'ali@ali.com',
-            'password' => bcrypt('ali')
+            'password' => 'ali'
         ]);
         $this->call(CategorySedder::class);
         $this->call(PostSeeder::class);

@@ -109,6 +109,9 @@ export default {
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors;
                 }
+                if (error.response.status === 403) {
+                    swal("Unauthorized edit this post!", "", "warning");
+                }
                 this.form_submitting = false;
             })
         }

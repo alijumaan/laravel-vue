@@ -11,23 +11,6 @@
                         </div>
                         <form>
                             <div class="relative w-full mb-3">
-                                <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="name">
-                                    Name
-                                </label>
-                                <input v-model="fields.name" id="name" type="email"
-                                       class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                                       placeholder="Name"/>
-
-                                <div v-if="errors && errors.name">
-                                    <div v-for="error in errors.name"
-                                         class="mt-3 list-disc list-inside text-sm text-red-600">
-                                        <p>{{ error }}</p>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="relative w-full mb-3">
                                 <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                        for="email">
                                     Email
@@ -38,6 +21,23 @@
 
                                 <div v-if="errors && errors.email">
                                     <div v-for="error in errors.email"
+                                         class="mt-3 list-disc list-inside text-sm text-red-600">
+                                        <p>{{ error }}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="name">
+                                    Name
+                                </label>
+                                <input v-model="fields.name" id="name" type="text"
+                                       class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                       placeholder="Name"/>
+
+                                <div v-if="errors && errors.name">
+                                    <div v-for="error in errors.name"
                                          class="mt-3 list-disc list-inside text-sm text-red-600">
                                         <p>{{ error }}</p>
                                     </div>

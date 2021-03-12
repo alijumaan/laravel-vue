@@ -4487,6 +4487,10 @@ __webpack_require__.r(__webpack_exports__);
           _this2.errors = error.response.data.errors;
         }
 
+        if (error.response.status === 403) {
+          swal("Unauthorized edit this post!", "", "warning");
+        }
+
         _this2.form_submitting = false;
       });
     }
@@ -5029,7 +5033,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      user: null
+      user: ''
     };
   },
   mounted: function mounted() {
@@ -24368,62 +24372,6 @@ var render = function() {
                       {
                         staticClass:
                           "block uppercase text-gray-700 text-xs font-bold mb-2",
-                        attrs: { for: "name" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                Name\n                            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.fields.name,
-                          expression: "fields.name"
-                        }
-                      ],
-                      staticClass:
-                        "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150",
-                      attrs: { id: "name", type: "email", placeholder: "Name" },
-                      domProps: { value: _vm.fields.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.fields, "name", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors && _vm.errors.name
-                      ? _c(
-                          "div",
-                          _vm._l(_vm.errors.name, function(error) {
-                            return _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "mt-3 list-disc list-inside text-sm text-red-600"
-                              },
-                              [_c("p", [_vm._v(_vm._s(error))])]
-                            )
-                          }),
-                          0
-                        )
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "relative w-full mb-3" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "block uppercase text-gray-700 text-xs font-bold mb-2",
                         attrs: { for: "email" }
                       },
                       [
@@ -24464,6 +24412,62 @@ var render = function() {
                       ? _c(
                           "div",
                           _vm._l(_vm.errors.email, function(error) {
+                            return _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "mt-3 list-disc list-inside text-sm text-red-600"
+                              },
+                              [_c("p", [_vm._v(_vm._s(error))])]
+                            )
+                          }),
+                          0
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "relative w-full mb-3" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "block uppercase text-gray-700 text-xs font-bold mb-2",
+                        attrs: { for: "name" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Name\n                            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fields.name,
+                          expression: "fields.name"
+                        }
+                      ],
+                      staticClass:
+                        "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150",
+                      attrs: { id: "name", type: "text", placeholder: "Name" },
+                      domProps: { value: _vm.fields.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.fields, "name", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors && _vm.errors.name
+                      ? _c(
+                          "div",
+                          _vm._l(_vm.errors.name, function(error) {
                             return _c(
                               "div",
                               {
