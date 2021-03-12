@@ -3904,6 +3904,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var auth = true;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3938,6 +3939,15 @@ __webpack_require__.r(__webpack_exports__);
 
           _this.form_submitting = false;
         });
+      });
+    }
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    if (auth) {
+      next();
+    } else {
+      next({
+        name: 'home'
       });
     }
   }
@@ -4582,7 +4592,8 @@ __webpack_require__.r(__webpack_exports__);
       sort_field: 'created_at',
       sort_direction: 'desc',
       showForm: false,
-      word: 'Show'
+      word: 'Show',
+      loading: true
     };
   },
   mounted: function mounted() {
@@ -4616,6 +4627,7 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios.get('/api/posts?page=' + page + '&category_id=' + this.category_id + '&sort_field=' + this.sort_field + '&sort_direction=' + this.sort_direction).then(function (response) {
         _this2.posts = response.data;
+        _this2.loading = false;
       });
     },
     delete_post: function delete_post(post_id) {
@@ -25407,7 +25419,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {},
+    { class: { loading: _vm.loading } },
     [
       _c(
         "select",

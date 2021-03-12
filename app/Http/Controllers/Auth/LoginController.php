@@ -11,12 +11,14 @@ class LoginController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        if (Auth::attempt($request->only('email', 'password'))) {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
             return response()->json(Auth::user(), 200);
         }
 
         throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.']
+            'password' => ['The provided credentials are incorrect.']
         ]);
     }
 

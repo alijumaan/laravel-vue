@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div :class="{'loading': loading}">
         <select v-model="category_id"
                 class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-2 border border-gray-400 rounded shadow focus:outline-none">
             <option value="">-- Choose category --</option>
@@ -71,12 +71,14 @@ export default {
             sort_field: 'created_at',
             sort_direction: 'desc',
             showForm: false,
-            word: 'Show'
+            word: 'Show',
+            loading: true,
         }
     },
     mounted() {
         axios.get('/api/categories').then(response => {
             this.categories = response.data.data
+
         })
         this.getResults();
     },
@@ -104,6 +106,7 @@ export default {
                 + '&sort_direction=' + this.sort_direction)
                 .then(response => {
                     this.posts = response.data;
+                    this.loading = false;
                 });
         },
 
@@ -118,9 +121,7 @@ export default {
                 if (willDelete) {
                     axios.delete('/api/posts/' + post_id).then(response => {
                         this.getResults();
-                        swal("Post deleted successfully!", {
-                            icon: "success",
-                        });
+                        swal("Post deleted successfully!", {icon: "success",});
                     }).catch(error => {
                         swal("Error!", "", "error");
                     })

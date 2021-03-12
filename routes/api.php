@@ -12,11 +12,6 @@ Route::middleware('auth:sanctum')->get('/authenticated', function () {
     return true;
 });
 
-
-Route::group(['middleware' => ['auth:sanctum']], function () {
-
-});
-
 Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
 Route::apiResource('categories', \App\Http\Controllers\Api\CategoryController::class)
     ->only('index', 'store');
@@ -24,3 +19,6 @@ Route::apiResource('categories', \App\Http\Controllers\Api\CategoryController::c
 Route::post('register', [\App\Http\Controllers\Auth\RegisterController::class, 'register']);
 Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
 Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout']);
+
+
+

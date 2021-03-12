@@ -13,6 +13,10 @@ class RegisterController extends Controller
     {
         $user = User::create($request->validated());
 
+        if ($user) {
+            auth()->login($user);
+        }
+
         return new RegisterResource($user);
     }
 }

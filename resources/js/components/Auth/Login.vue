@@ -79,6 +79,9 @@
 </template>
 
 <script>
+
+let auth = true;
+
 export default {
     data() {
         return {
@@ -112,7 +115,14 @@ export default {
                     })
             })
         }
-    }
+    },
+    beforeRouteEnter(to, from, next) {
+      if ( auth ) {
+          next()
+      } else {
+          next({ name: 'home'})
+      }
+    },
 }
 </script>
 
